@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const Manifesto = () => {
-    const [text, setText] = useState("");
-    const fullText = \`> INITIALIZING MANIFESTO PROTOCOL...
+  const [text, setText] = useState("");
+  const fullText = `> INITIALIZING MANIFESTO PROTOCOL...
 > CONNECTING TO VIBE STREAM...
 > ACCESS GRANTED.
 
@@ -25,7 +25,7 @@ We are VIBE CODERS.
 The future belongs to the fast.
 
 > END TRANSMISSION.
-\`;
+`;
 
   useEffect(() => {
     let index = 0;
@@ -41,7 +41,7 @@ The future belongs to the fast.
   return (
     <main className="min-h-screen bg-background text-foreground overflow-hidden font-mono">
       <Header />
-      
+
       <div className="container mx-auto px-4 py-24 md:py-32">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column: ASCII Art */}
