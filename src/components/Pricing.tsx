@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useAudio } from "@/hooks/useAudio";
 
 const pricingOptions = [
   {
@@ -30,6 +31,8 @@ const pricingOptions = [
 ];
 
 export const Pricing = () => {
+  const { playSonar } = useAudio();
+
   return (
     <section id="pricing" className="py-24 md:py-32 relative bg-background-matte">
       <div className="container mx-auto px-4 md:px-6">
@@ -60,9 +63,30 @@ export const Pricing = () => {
                 rotate: 0,
                 transition: { type: "spring", stiffness: 400, damping: 25 }
               }}
-              className={`relative ${option.featured ? 'md:-mt-4 md:mb-4' : ''}`}
+              onHoverStart={() => playSonar()}
+              className={`relative ${option.featured ? 'md:-mt-4 md:mb-4' : ''} group`}
             >
-              <div className={`terminal-window p-0 ${option.featured ? 'border-primary' : 'border-border-subtle'}`}>
+              {/* Sonar Ping Effect on Hover */}
+              <motion.div
+                className="absolute inset-0 pointer-events-none"
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+              >
+                <motion.div
+                  className="absolute inset-0 border-2 border-primary/30"
+                  initial={{ scale: 1, opacity: 0.5 }}
+                  animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0, 0.5] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                  className="absolute inset-0 border border-primary/20"
+                  initial={{ scale: 1, opacity: 0.3 }}
+                  animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0, 0.3] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+                />
+              </motion.div>
+
+              <div className={`terminal-window p-0 ${option.featured ? 'border-primary' : 'border-border-subtle'} relative overflow-hidden`}>
                 {/* Terminal Header */}
                 <div className="flex items-center gap-2 px-4 py-3 border-b border-primary/20 bg-background">
                   <div className="w-3 h-3 rounded-full bg-destructive/80" />

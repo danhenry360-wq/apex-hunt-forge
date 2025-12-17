@@ -1,9 +1,11 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useAudio } from "@/hooks/useAudio";
+import { Link } from "react-router-dom";
 
 const projects = [
   {
-    id: 1,
+    id: "fintech-dashboard",
     title: "FINTECH DASHBOARD",
     size: "large",
     huntTime: "72H",
@@ -13,7 +15,7 @@ const projects = [
     color: "primary",
   },
   {
-    id: 2,
+    id: "ai-chatbot-platform",
     title: "AI CHATBOT PLATFORM",
     size: "medium",
     huntTime: "48H",
@@ -23,7 +25,7 @@ const projects = [
     color: "accent",
   },
   {
-    id: 3,
+    id: "ecommerce-mvp",
     title: "E-COMMERCE MVP",
     size: "medium",
     huntTime: "96H",
@@ -33,7 +35,7 @@ const projects = [
     color: "primary",
   },
   {
-    id: 4,
+    id: "saas-boilerplate",
     title: "SAAS BOILERPLATE",
     size: "small",
     huntTime: "24H",
@@ -43,7 +45,7 @@ const projects = [
     color: "accent",
   },
   {
-    id: 5,
+    id: "portfolio-site",
     title: "PORTFOLIO SITE",
     size: "small",
     huntTime: "12H",
@@ -53,7 +55,7 @@ const projects = [
     color: "primary",
   },
   {
-    id: 6,
+    id: "api-gateway",
     title: "API GATEWAY",
     size: "small",
     huntTime: "36H",
@@ -63,7 +65,7 @@ const projects = [
     color: "accent",
   },
   {
-    id: 7,
+    id: "mobile-app",
     title: "MOBILE APP",
     size: "small",
     huntTime: "120H",
@@ -81,7 +83,13 @@ const sizeClasses = {
 };
 
 export const BentoGrid = () => {
-  const [hoveredId, setHoveredId] = useState<number | null>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const { playSonar } = useAudio();
+
+  const handleHover = (id: string) => {
+    setHoveredId(id);
+    playSonar();
+  };
 
   return (
     <section id="portfolio" className="py-24 md:py-32 relative">
@@ -101,22 +109,11 @@ export const BentoGrid = () => {
 
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 md:translate-x-[2%]">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              whileHover={{ 
-                scale: 1.03,
-                transition: { type: "spring", stiffness: 400, damping: 25 }
-              }}
-              onHoverStart={() => setHoveredId(project.id)}
-              onHoverEnd={() => setHoveredId(null)}
-              className={`${sizeClasses[project.size as keyof typeof sizeClasses]} relative group cursor-pointer`}
-            >
-              <div className={`h-full min-h-[200px] md:min-h-[250px] p-6 bg-card border border-border-subtle hover:border-${project.color}/50 transition-all duration-300 overflow-hidden`}>
+          {projects.map((project, index) => {
+            const hasDetailPage = ["fintech-dashboard", "ai-chatbot-platform", "ecommerce-mvp", "saas-boilerplate"].includes(project.id);
+            
+            const CardContent = (
+              <>
                 {/* Project Title */}
                 <div className="flex items-start justify-between mb-4">
                   <h3 className="font-mono font-bold text-sm md:text-base text-foreground group-hover:text-primary transition-colors">
@@ -149,9 +146,19 @@ export const BentoGrid = () => {
                   <div className="font-mono text-xs text-primary bg-terminal p-3 border border-primary/30">
                     <span className="text-muted-foreground">KILL SHOT:</span>
                     <br />
-                    <TypewriterText text={project.killShot} isActive={hoveredId === project.id} />
+                    {project.killShot}
                   </div>
                 </motion.div>
+
+                {/* Sonar Ping Effect */}
+                {hoveredId === project.id && (
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0.8 }}
+                    animate={{ scale: 2, opacity: 0 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="absolute inset-0 border-2 border-primary/40 pointer-events-none"
+                  />
+                )}
 
                 {/* Blood Pulse Effect */}
                 {hoveredId === project.id && (
@@ -161,34 +168,48 @@ export const BentoGrid = () => {
                     className="absolute inset-0 border-2 border-destructive/40 blood-pulse pointer-events-none"
                   />
                 )}
-              </div>
-            </motion.div>
-          ))}
+
+                {/* View Case Study Indicator */}
+                {hasDetailPage && (
+                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="text-xs font-mono text-primary">VIEW →</span>
+                  </div>
+                )}
+              </>
+            );
+            
+            return (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                whileHover={{ 
+                  scale: 1.03,
+                  transition: { type: "spring", stiffness: 400, damping: 25 }
+                }}
+                onHoverStart={() => handleHover(project.id)}
+                onHoverEnd={() => setHoveredId(null)}
+                className={`${sizeClasses[project.size as keyof typeof sizeClasses]} relative group cursor-pointer`}
+              >
+                {hasDetailPage ? (
+                  <Link 
+                    to={`/case-study/${project.id}`}
+                    className={`block h-full min-h-[200px] md:min-h-[250px] p-6 bg-card border border-border-subtle hover:border-${project.color}/50 transition-all duration-300 overflow-hidden relative`}
+                  >
+                    {CardContent}
+                  </Link>
+                ) : (
+                  <div className={`h-full min-h-[200px] md:min-h-[250px] p-6 bg-card border border-border-subtle hover:border-${project.color}/50 transition-all duration-300 overflow-hidden relative`}>
+                    {CardContent}
+                  </div>
+                )}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
   );
-};
-
-const TypewriterText = ({ text, isActive }: { text: string; isActive: boolean }) => {
-  const [displayText, setDisplayText] = useState("");
-
-  useState(() => {
-    if (isActive) {
-      let i = 0;
-      const interval = setInterval(() => {
-        if (i < text.length) {
-          setDisplayText(text.slice(0, i + 1));
-          i++;
-        } else {
-          clearInterval(interval);
-        }
-      }, 30);
-      return () => clearInterval(interval);
-    } else {
-      setDisplayText("");
-    }
-  });
-
-  return <span>{isActive ? displayText || text : text}</span>;
 };
