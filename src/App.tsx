@@ -10,6 +10,7 @@ import CaseStudy from "./pages/CaseStudy";
 import Manifesto from "./pages/Manifesto";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import Portfolio from "./pages/Portfolio";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const AnimatedRoutes = () => {
         <Route path="/manifesto" element={<Manifesto />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route path="/portfolio" element={<Portfolio />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>

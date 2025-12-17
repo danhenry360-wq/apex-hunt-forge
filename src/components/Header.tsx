@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 
 const navItems = [
   { label: "THE STACK", command: "$ cd /tools/", href: "#features" },
-  { label: "PORTFOLIO", command: "$ cd /hunts/", href: "#projects" },
+  { label: "PORTFOLIO", command: "$ cd /hunts/", href: "/portfolio" },
   { label: "PRICING", command: "$ cat pricing.md", href: "#pricing" },
   { label: "LOGS", command: "$ ls /var/logs", href: "/blog" },
   { label: "MANIFESTO", command: "$ cat README.md", href: "/manifesto" },
