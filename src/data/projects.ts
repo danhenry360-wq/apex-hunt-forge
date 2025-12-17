@@ -9,6 +9,13 @@ export interface Project {
     killShot: string;
     color: "primary" | "accent";
     description?: string;
+    videoUrl?: string;
+    images?: string[];
+    // Case Study Details
+    metrics?: { label: string; value: string }[];
+    challenge?: string;
+    approach?: string;
+    testimonial?: { quote: string; author: string };
 }
 
 export const PROJECTS: Project[] = [
@@ -23,6 +30,23 @@ export const PROJECTS: Project[] = [
         killShot: "$ lovable deploy --prod --scale infinite",
         color: "primary",
         description: "Real-time high frequency trading visualization interface.",
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder (We all know what this is, but it works for demo)
+        images: [
+            "https://images.unsplash.com/photo-1611974765270-ca12586343bb?auto=format&fit=crop&q=80&w=1000",
+            "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
+            "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&q=80&w=1000"
+        ],
+        challenge: "Build a real-time trading dashboard capable of handling 10,000+ concurrent users with sub-100ms latency.",
+        approach: "Leveraged AI-assisted development with Cursor to rapidly prototype. Used Supabase real-time subscriptions for live data streaming. Implemented virtualized lists for performance.",
+        metrics: [
+            { label: "LATENCY", value: "<50ms" },
+            { label: "UPTIME", value: "99.99%" },
+            { label: "USERS", value: "15K+" },
+        ],
+        testimonial: {
+            quote: "SharkVibes delivered in 3 days what our previous agency quoted 3 months for.",
+            author: "CTO, Series A Fintech",
+        },
     },
     {
         id: "ai-chatbot-platform",
