@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { SharkFin } from "./SharkFin";
 import { Menu, X } from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 const navItems = [
   { label: "THE STACK", command: "$ cd /tools/", href: "#features" },
@@ -14,6 +15,15 @@ const navItems = [
 export const Header = () => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+
+  const getHref = (href: string) => {
+    if (href.startsWith("#") && !isHome) {
+      return `/${href}`;
+    }
+    return href;
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border-subtle">
@@ -21,7 +31,7 @@ export const Header = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <motion.a
-            href="#"
+            href="/"
             className="flex items-center gap-1 group"
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
@@ -40,7 +50,7 @@ export const Header = () => {
             {navItems.map((item) => (
               <a
                 key={item.label}
-                href={item.href}
+                href={getHref(item.href)}
                 className="relative scan-line font-mono text-sm text-muted-foreground hover:text-foreground transition-colors"
                 onMouseEnter={() => setHoveredItem(item.label)}
                 onMouseLeave={() => setHoveredItem(null)}
@@ -63,7 +73,7 @@ export const Header = () => {
 
           {/* CTA Button */}
           <motion.a
-            href="#contact"
+            href={getHref("#contact")}
             className="hidden md:block px-6 py-2.5 bg-primary text-primary-foreground font-mono font-semibold text-sm glow-pulse"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
@@ -93,7 +103,7 @@ export const Header = () => {
               {navItems.map((item) => (
                 <a
                   key={item.label}
-                  href={item.href}
+                  href={getHref(item.href)}
                   className="font-mono text-sm text-muted-foreground hover:text-primary transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
@@ -101,7 +111,7 @@ export const Header = () => {
                 </a>
               ))}
               <a
-                href="#contact"
+                href={getHref("#contact")}
                 className="inline-block px-6 py-2.5 bg-primary text-primary-foreground font-mono font-semibold text-sm text-center glow-pulse"
                 onClick={() => setMobileMenuOpen(false)}
               >
