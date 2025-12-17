@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 export const AsciiShark = () => {
-  const sharkArt = \`
+  const sharkArt = `
                                      _
                  __                 / \\\\
                 /  \\\\               |   |
@@ -16,10 +16,10 @@ export const AsciiShark = () => {
                 |    |
                 |    |
                 \\\\____/
-      \`;
+      `;
 
   // A more detailed ascii shark
-  const complexShark = \`
+  const complexShark = `
               ,                                   
              /|                                   
             / |                                   
@@ -34,9 +34,9 @@ export const AsciiShark = () => {
              |    |                    |    |     
              |    |                    |    |     
              \\\\____/                    \\\\____/     
-  \`;
+  `;
 
-  const realShark = \`
+  const realShark = `
          .
         / \\\\
        /   \\\\                                            .
@@ -53,9 +53,9 @@ export const AsciiShark = () => {
    \\\\                                                          /
     \\\\                                                        /
      \\\\______________________________________________________/
-  \`;
+  `;
 
-    const cyberShark = \`
+  const cyberShark = `
       /""-._                                   
      .      '-,                                 
      :         '',                              
@@ -73,7 +73,7 @@ export const AsciiShark = () => {
               |        |                        
               |        |                        
               |        |                        
-  \`;
+  `;
 
   return (
     <div className="font-mono text-[10px] sm:text-xs md:text-sm leading-none whitespace-pre text-primary opacity-80 select-none">
