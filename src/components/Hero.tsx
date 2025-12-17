@@ -1,21 +1,64 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { TypingTerminal } from "./TypingTerminal";
 
 export const Hero = () => {
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const sharkX = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const sharkY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const sharkOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.03, 0.06, 0.02]);
+  const sharkScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-      {/* Background Shark Silhouette */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <svg
+    <section ref={containerRef} className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+      {/* Parallax Background Shark Silhouette */}
+      <motion.div 
+        className="absolute inset-0 pointer-events-none overflow-hidden"
+        style={{ x: sharkX, y: sharkY, scale: sharkScale }}
+      >
+        <motion.svg
           viewBox="0 0 800 400"
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-auto opacity-[0.03] animate-shark-swim"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180%] h-auto"
+          style={{ opacity: sharkOpacity }}
           fill="currentColor"
         >
-          <path d="M100,200 Q200,150 350,180 Q450,200 500,170 Q550,140 600,160 Q650,180 700,200 Q650,220 600,240 Q550,260 500,230 Q450,200 350,220 Q200,250 100,200 Z" />
-          <path d="M380,100 Q400,180 380,180 L360,180 Q340,180 360,100 Z" />
-          <path d="M550,220 L620,280 L550,260 Z" />
+          {/* Main Shark Body */}
+          <path d="M50,200 Q150,120 300,160 Q400,180 500,150 Q600,120 700,160 Q750,180 780,200 Q750,220 700,240 Q600,280 500,250 Q400,220 300,240 Q150,280 50,200 Z" />
+          {/* Dorsal Fin */}
+          <path d="M350,80 Q380,160 350,160 L320,160 Q290,160 320,80 Z" />
+          {/* Tail Fin */}
+          <path d="M720,180 L800,120 L800,280 L720,220 Z" />
+          {/* Pectoral Fin */}
+          <path d="M280,220 L220,300 L300,260 Z" />
+          {/* Eye */}
+          <circle cx="180" cy="190" r="8" className="fill-primary/20" />
+          {/* Gills */}
+          <path d="M220,180 L230,200 M235,175 L245,200 M250,172 L260,198" className="stroke-current fill-none stroke-[2]" />
+        </motion.svg>
+      </motion.div>
+
+      {/* Secondary Swimming Shark (slower parallax) */}
+      <motion.div 
+        className="absolute inset-0 pointer-events-none overflow-hidden"
+        style={{ 
+          x: useTransform(scrollYProgress, [0, 1], ["-20%", "10%"]),
+          y: useTransform(scrollYProgress, [0, 1], ["30%", "10%"]),
+        }}
+      >
+        <svg
+          viewBox="0 0 400 200"
+          className="absolute bottom-1/4 right-0 w-[60%] h-auto opacity-[0.015]"
+          fill="currentColor"
+        >
+          <path d="M25,100 Q75,60 150,80 Q200,90 250,75 Q300,60 350,80 Q375,90 390,100 Q375,110 350,120 Q300,140 250,125 Q200,110 150,120 Q75,140 25,100 Z" />
+          <path d="M175,40 Q190,80 175,80 L160,80 Q145,80 160,40 Z" />
         </svg>
-      </div>
+      </motion.div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
@@ -54,7 +97,7 @@ export const Hero = () => {
               className="flex flex-col sm:flex-row gap-4"
             >
               <motion.a
-                href="#pricing"
+                href="#contact"
                 className="inline-flex items-center justify-center px-8 py-4 bg-primary text-primary-foreground font-mono font-semibold glow-pulse"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}

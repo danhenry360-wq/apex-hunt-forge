@@ -4,7 +4,9 @@ import { AdvantageCards } from "@/components/AdvantageCards";
 import { ToolsTicker } from "@/components/ToolsTicker";
 import { BentoGrid } from "@/components/BentoGrid";
 import { Pricing } from "@/components/Pricing";
+import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
+import { AudioToggle } from "@/components/AudioToggle";
 
 const Index = () => {
   return (
@@ -15,7 +17,9 @@ const Index = () => {
       <ToolsTicker />
       <BentoGrid />
       <Pricing />
+      <ContactSection />
       <Footer />
+      <AudioToggle />
     </main>
   );
 };
