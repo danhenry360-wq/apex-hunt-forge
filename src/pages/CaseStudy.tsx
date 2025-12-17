@@ -7,11 +7,18 @@ import { Footer } from "@/components/Footer";
 
 
 import { PROJECTS } from "@/data/projects";
+import { useProjects } from "@/hooks/useProjects";
 
 const CaseStudy = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const project = PROJECTS.find((p) => p.id === id);
+  const { projects, loading } = useProjects();
+
+  const project = projects.find((p) => p.id === id);
+
+  if (loading && !project) {
+    return <div className="min-h-screen bg-background flex items-center justify-center font-mono text-primary">INITIALIZING_VIBE...</div>
+  }
 
   if (!project) {
     return (

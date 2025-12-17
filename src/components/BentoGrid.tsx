@@ -2,79 +2,9 @@ import { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useAudio } from "@/hooks/useAudio";
 import { Link } from "react-router-dom";
+import { useProjects } from "@/hooks/useProjects";
 
-const projects = [
-  {
-    id: "fintech-dashboard",
-    title: "FINTECH DASHBOARD",
-    size: "large",
-    huntTime: "72H",
-    stack: "CURSOR + SUPABASE",
-    client: "STEALTH STARTUP",
-    killShot: "$ lovable deploy --prod --scale infinite",
-    color: "primary",
-  },
-  {
-    id: "ai-chatbot-platform",
-    title: "AI CHATBOT PLATFORM",
-    size: "medium",
-    huntTime: "48H",
-    stack: "V0 + OPENAI",
-    client: "ENTERPRISE",
-    killShot: "$ npx create-shark-app@latest",
-    color: "accent",
-  },
-  {
-    id: "ecommerce-mvp",
-    title: "E-COMMERCE MVP",
-    size: "medium",
-    huntTime: "96H",
-    stack: "LOVABLE + STRIPE",
-    client: "DTC BRAND",
-    killShot: "$ stripe listen --forward-to /api/prey",
-    color: "primary",
-  },
-  {
-    id: "saas-boilerplate",
-    title: "SAAS BOILERPLATE",
-    size: "small",
-    huntTime: "24H",
-    stack: "CURSOR",
-    client: "INDIE",
-    killShot: "$ git commit -m 'apex'",
-    color: "accent",
-  },
-  {
-    id: "portfolio-site",
-    title: "PORTFOLIO SITE",
-    size: "small",
-    huntTime: "12H",
-    stack: "V0 + TAILWIND",
-    client: "CREATIVE",
-    killShot: "$ vercel --prod",
-    color: "primary",
-  },
-  {
-    id: "api-gateway",
-    title: "API GATEWAY",
-    size: "small",
-    huntTime: "36H",
-    stack: "SUPABASE",
-    client: "STARTUP",
-    killShot: "$ curl -X POST /devour",
-    color: "accent",
-  },
-  {
-    id: "mobile-app",
-    title: "MOBILE APP",
-    size: "small",
-    huntTime: "120H",
-    stack: "REACT NATIVE",
-    client: "FUNDED",
-    killShot: "$ expo start --hunt",
-    color: "primary",
-  },
-];
+
 
 const sizeClasses = {
   large: "md:col-span-2 md:row-span-2",
@@ -85,6 +15,7 @@ const sizeClasses = {
 export const BentoGrid = () => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const { playSonar } = useAudio();
+  const { projects } = useProjects();
 
   const handleHover = (id: string) => {
     setHoveredId(id);
@@ -111,7 +42,7 @@ export const BentoGrid = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 md:translate-x-[2%]">
           {projects.map((project, index) => {
             const hasDetailPage = ["fintech-dashboard", "ai-chatbot-platform", "ecommerce-mvp", "saas-boilerplate"].includes(project.id);
-            
+
             const CardContent = (
               <>
                 {/* Project Title */}
@@ -137,7 +68,7 @@ export const BentoGrid = () => {
                 {/* Kill Shot Reveal */}
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
-                  animate={{ 
+                  animate={{
                     opacity: hoveredId === project.id ? 1 : 0,
                     y: hoveredId === project.id ? 0 : 10
                   }}
@@ -177,7 +108,7 @@ export const BentoGrid = () => {
                 )}
               </>
             );
-            
+
             return (
               <motion.div
                 key={project.id}
@@ -185,7 +116,7 @@ export const BentoGrid = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                whileHover={{ 
+                whileHover={{
                   scale: 1.03,
                   transition: { type: "spring", stiffness: 400, damping: 25 }
                 }}
@@ -194,7 +125,7 @@ export const BentoGrid = () => {
                 className={`${sizeClasses[project.size as keyof typeof sizeClasses]} relative group cursor-pointer`}
               >
                 {hasDetailPage ? (
-                  <Link 
+                  <Link
                     to={`/case-study/${project.id}`}
                     className={`block h-full min-h-[200px] md:min-h-[250px] p-6 bg-card border border-border-subtle hover:border-${project.color}/50 transition-all duration-300 overflow-hidden relative`}
                   >

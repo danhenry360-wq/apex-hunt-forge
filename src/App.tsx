@@ -11,6 +11,8 @@ import Manifesto from "./pages/Manifesto";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Portfolio from "./pages/Portfolio";
+import Login from "./pages/admin/Login";
+import Dashboard from "./pages/admin/Dashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +30,8 @@ const AnimatedRoutes = () => {
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/admin" element={<Login />} />
+        <Route path="/admin/dashboard" element={<Dashboard />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
