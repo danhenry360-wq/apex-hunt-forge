@@ -4,10 +4,10 @@ import { SharkFin } from "./SharkFin";
 import { Menu, X } from "lucide-react";
 
 const navItems = [
-  { label: "THE STACK", command: "$ cd /tools/" },
-  { label: "PORTFOLIO", command: "$ cd /hunts/" },
-  { label: "PRICING", command: "$ cat pricing.md" },
-  { label: "MANIFESTO", command: "$ cat README.md" },
+  { label: "THE STACK", command: "$ cd /tools/", href: "#features" },
+  { label: "PORTFOLIO", command: "$ cd /hunts/", href: "#projects" },
+  { label: "PRICING", command: "$ cat pricing.md", href: "#pricing" },
+  { label: "MANIFESTO", command: "$ cat README.md", href: "/manifesto" },
 ];
 
 export const Header = () => {
@@ -19,8 +19,8 @@ export const Header = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <motion.a 
-            href="#" 
+          <motion.a
+            href="#"
             className="flex items-center gap-1 group"
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
@@ -39,7 +39,7 @@ export const Header = () => {
             {navItems.map((item) => (
               <a
                 key={item.label}
-                href={`#${item.label.toLowerCase().replace(" ", "-")}`}
+                href={item.href}
                 className="relative scan-line font-mono text-sm text-muted-foreground hover:text-foreground transition-colors"
                 onMouseEnter={() => setHoveredItem(item.label)}
                 onMouseLeave={() => setHoveredItem(null)}
@@ -92,7 +92,7 @@ export const Header = () => {
               {navItems.map((item) => (
                 <a
                   key={item.label}
-                  href={`#${item.label.toLowerCase().replace(" ", "-")}`}
+                  href={item.href}
                   className="font-mono text-sm text-muted-foreground hover:text-primary transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
