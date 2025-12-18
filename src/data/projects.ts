@@ -18,6 +18,7 @@ export interface Project {
     color: "primary" | "accent";
     description?: string;
     videoUrl?: string;
+    previewVideo?: string;
     image?: string;
     images?: string[];
     // Case Study Details
@@ -39,6 +40,7 @@ export const PROJECTS: Project[] = [
         killShot: "$ lovable deploy --prod --scale infinite",
         color: "primary",
         image: fintechDashboard,
+        previewVideo: "https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-futuristic-devices-99786-large.mp4",
         description: "Real-time high frequency trading visualization interface.",
         videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
         images: [fintechDashboard],
@@ -65,6 +67,7 @@ export const PROJECTS: Project[] = [
         killShot: "$ npx create-shark-app@latest",
         color: "accent",
         image: aiChatbot,
+        previewVideo: "https://assets.mixkit.co/videos/preview/mixkit-artificial-intelligence-brain-with-neural-connections-animation-9786-large.mp4",
         description: "Autonomous customer support agent swarms.",
     },
     {
@@ -78,6 +81,7 @@ export const PROJECTS: Project[] = [
         killShot: "$ stripe listen --forward-to /api/prey",
         color: "primary",
         image: ecommerceMvp,
+        previewVideo: "https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-woman-typing-on-a-laptop-with-a-purple-light-46720-large.mp4",
         description: "Headless commerce engine for high-velocity brands.",
     },
     {
@@ -91,6 +95,7 @@ export const PROJECTS: Project[] = [
         killShot: "$ git commit -m 'apex'",
         color: "accent",
         image: saasBoilerplate,
+        previewVideo: "https://assets.mixkit.co/videos/preview/mixkit-software-developer-working-on-code-screen-close-up-1728-large.mp4",
         description: "The ultimate starting point for hunters.",
     },
     {
@@ -104,6 +109,7 @@ export const PROJECTS: Project[] = [
         killShot: "$ vercel --prod",
         color: "primary",
         image: portfolioSite,
+        previewVideo: "https://assets.mixkit.co/videos/preview/mixkit-typing-on-a-laptop-close-up-4491-large.mp4",
         description: "This very interface. Self-replicating excellence.",
     },
     {
@@ -117,6 +123,7 @@ export const PROJECTS: Project[] = [
         killShot: "$ curl -X POST /devour",
         color: "accent",
         image: apiGateway,
+        previewVideo: "https://assets.mixkit.co/videos/preview/mixkit-cloud-and-network-data-connections-1851-large.mp4",
         description: "High-throughput request ingestion system.",
     },
     {
@@ -130,6 +137,7 @@ export const PROJECTS: Project[] = [
         killShot: "$ expo start --hunt",
         color: "primary",
         image: mobileApp,
+        previewVideo: "https://assets.mixkit.co/videos/preview/mixkit-woman-using-smartphone-at-night-4823-large.mp4",
         description: "Cross-platform predation tool.",
     },
 ];
