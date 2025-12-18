@@ -79,6 +79,8 @@ const Dashboard = () => {
             }
 
             // 2. Insert Project Record
+            console.log("Attempting to insert project:", { title, client, video_url: videoUrl, images: uploadedImageUrls });
+
             const { error: insertError } = await supabase
                 .from('projects')
                 .insert({
@@ -93,7 +95,10 @@ const Dashboard = () => {
                     color: 'primary'
                 });
 
-            if (insertError) throw insertError;
+            if (insertError) {
+                console.error("Supabase Insert Error:", insertError);
+                throw insertError;
+            }
 
             toast({
                 title: "TARGET DEPLOYED",

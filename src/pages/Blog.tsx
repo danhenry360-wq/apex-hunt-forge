@@ -11,8 +11,30 @@ const Blog = () => {
 
             <div className="container mx-auto px-4 py-32 md:py-40">
                 <div className="max-w-4xl mx-auto">
-                    <div className="mb-8 text-primary/80">
-                        <span className="text-accent">$</span> ls -lah /var/logs/system
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+                        <div>
+                            <div className="text-primary/60 text-xs mb-1 font-mono tracking-widest uppercase">
+                                // SECTOR_04 // INTELLIGENCE_LOGS
+                            </div>
+                            <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter">
+                                THE <span className="text-primary">PREDATOR</span> FEED
+                            </h1>
+                        </div>
+                        <div className="hidden md:block">
+                            <pre className="text-[10px] leading-[8px] text-primary/40 font-mono">
+                                {`      .---.
+     /     \\
+    | () () |
+     \\  ^  /
+      |||||
+      |||||`}
+                            </pre>
+                        </div>
+                    </div>
+
+                    <div className="mb-8 text-primary/80 flex items-center gap-2">
+                        <span className="text-accent">$</span> ls -lah /var/logs/ai_hunts/
+                        <span className="w-2 h-4 bg-primary/40 animate-pulse" />
                     </div>
 
                     <div className="bg-terminal/50 border border-primary/20 rounded-md p-6 backdrop-blur-sm shadow-xl">

@@ -40,26 +40,39 @@ const BlogPost = () => {
                         </div>
 
                         {/* Content Area */}
-                        <div className="p-6 md:p-12 min-h-[500px] relative">
-                            <div className="absolute top-0 left-0 bottom-0 w-12 border-r border-border-subtle/30 bg-secondary/10 hidden md:flex flex-col items-end py-6 pr-2 text-border-subtle select-none">
-                                {Array.from({ length: 20 }).map((_, i) => (
-                                    <div key={i} className="text-xs leading-relaxed opacity-50">{i + 1}</div>
+                        <div className="p-6 md:p-12 min-h-[500px] relative group">
+                            {/* Line Numbers */}
+                            <div className="absolute top-0 left-0 bottom-0 w-12 border-r border-border-subtle/30 bg-secondary/5 hidden md:flex flex-col items-end py-6 pr-2 text-border-subtle/40 select-none">
+                                {Array.from({ length: 30 }).map((_, i) => (
+                                    <div key={i} className="text-xs leading-relaxed">{i + 1}</div>
                                 ))}
                             </div>
 
+                            {/* Scanner Bar Effect */}
+                            <div className="absolute top-0 left-0 w-full h-[2px] bg-primary/20 shadow-[0_0_15px_rgba(var(--primary),0.5)] animate-scanner pointer-events-none z-10" />
+
                             <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="md:pl-16 prose prose-invert prose-p:text-primary/80 prose-headings:text-primary max-w-none"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.8 }}
+                                className="md:pl-16 prose prose-invert prose-p:text-primary/80 prose-headings:text-primary max-w-none relative z-0"
                             >
-                                <pre className="whitespace-pre-wrap font-mono text-sm md:text-base leading-relaxed">
+                                <pre className="whitespace-pre-wrap font-mono text-sm md:text-base leading-relaxed text-primary/90">
                                     {post.content}
                                 </pre>
                             </motion.div>
 
-                            <div className="mt-12 pt-4 border-t border-border-subtle flex justify-between text-xs text-muted-foreground">
-                                <span>-- INSERT --</span>
-                                <span>{post.size}</span>
+                            <div className="mt-12 pt-4 border-t border-border-subtle/50 flex flex-wrap justify-between gap-4 text-[10px] md:text-xs text-muted-foreground font-mono">
+                                <div className="flex gap-4">
+                                    <span className="text-primary bg-primary/10 px-2 uppercase font-black">-- INSERT --</span>
+                                    <span>{post.permissions}</span>
+                                    <span className="hidden md:inline">UTF-8</span>
+                                </div>
+                                <div className="flex gap-4">
+                                    <span>SIZE: {post.size}</span>
+                                    <span>L: 1, C: 1</span>
+                                    <span className="text-primary/60">[POST_DECRYPTED]</span>
+                                </div>
                             </div>
                         </div>
                     </div>

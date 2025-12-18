@@ -209,3 +209,14 @@
     border-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent))) 1;
   }
 }
+
+@keyframes scanner {
+  0% { top: 0; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.animate-scanner {
+  animation: scanner 4s linear infinite;
+}

@@ -1,6 +1,6 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { PROJECTS, Project } from "@/data/projects";
+import { useProjects } from "@/hooks/useProjects";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -9,8 +9,9 @@ const categories = ["ALL", "AI", "FINTECH", "SAAS", "ECOMMERCE", "MOBILE"];
 
 const Portfolio = () => {
     const [filter, setFilter] = useState("ALL");
+    const { projects } = useProjects();
 
-    const filteredProjects = PROJECTS.filter(
+    const filteredProjects = projects.filter(
         (p) => filter === "ALL" || p.category === filter
     );
 
@@ -41,8 +42,8 @@ const Portfolio = () => {
                                 key={cat}
                                 onClick={() => setFilter(cat)}
                                 className={`px-4 py-2 text-xs md:text-sm border transition-all duration-300 ${filter === cat
-                                        ? "border-primary bg-primary/10 text-primary glow-pulse"
-                                        : "border-border-subtle text-muted-foreground hover:border-primary/50 hover:text-primary"
+                                    ? "border-primary bg-primary/10 text-primary glow-pulse"
+                                    : "border-border-subtle text-muted-foreground hover:border-primary/50 hover:text-primary"
                                     }`}
                             >
                                 [{cat}]
