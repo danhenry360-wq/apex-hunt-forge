@@ -69,51 +69,65 @@ const Portfolio = () => {
                             >
                                 <Link to={`/case-study/${project.id}`} className="block h-full group">
                                     <div className={`
-                    h-full relative bg-card border border-border-subtle p-6 overflow-hidden
-                    hover:border-${project.color} transition-colors duration-300
+                    h-full relative bg-card border border-border-subtle p-0 overflow-hidden
+                    hover:border-${project.color} transition-all duration-500
                   `}>
-                                        {/* Corner accents */}
-                                        <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary/50 opacity-50" />
-                                        <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary/50 opacity-50" />
-                                        <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary/50 opacity-50" />
-                                        <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary/50 opacity-50" />
-
-                                        {/* Header */}
-                                        <div className="flex justify-between items-start mb-4">
-                                            <div className="text-xs text-muted-foreground font-mono">
-                                                ID: {project.id.toUpperCase().substring(0, 8)}
+                                        {/* Project Image Background */}
+                                        {project.image && (
+                                            <div className="absolute inset-0 z-0">
+                                                <img
+                                                    src={project.image}
+                                                    alt={project.title}
+                                                    className="w-full h-full object-cover opacity-10 group-hover:opacity-30 group-hover:scale-110 transition-all duration-700"
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-transparent" />
                                             </div>
-                                            <div className={`
-                        px-2 py-0.5 text-[10px] font-bold border
-                        ${project.color === 'primary'
-                                                    ? 'border-primary text-primary bg-primary/10'
-                                                    : 'border-accent text-accent bg-accent/10'}
-                      `}>
-                                                {project.huntTime}
+                                        )}
+
+                                        <div className="relative z-10 p-6 h-full flex flex-col">
+                                            {/* Corner accents */}
+                                            <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary/50 opacity-50" />
+                                            <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary/50 opacity-50" />
+                                            <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary/50 opacity-50" />
+                                            <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary/50 opacity-50" />
+
+                                            {/* Header */}
+                                            <div className="flex justify-between items-start mb-4">
+                                                <div className="text-xs text-muted-foreground font-mono">
+                                                    ID: {project.id.toUpperCase().substring(0, 8)}
+                                                </div>
+                                                <div className={`
+                            px-2 py-0.5 text-[10px] font-bold border
+                            ${project.color === 'primary'
+                                                        ? 'border-primary text-primary bg-primary/10 shadow-[0_0_10px_rgba(var(--primary),0.3)]'
+                                                        : 'border-accent text-accent bg-accent/10 shadow-[0_0_10px_rgba(var(--accent),0.3)]'}
+                          `}>
+                                                    {project.huntTime}
+                                                </div>
                                             </div>
+
+                                            {/* Title */}
+                                            <h3 className="text-xl font-black text-foreground mb-2 group-hover:text-primary transition-colors uppercase italic tracking-tighter">
+                                                {project.title}
+                                            </h3>
+
+                                            <p className="text-sm text-muted-foreground/80 mb-6 line-clamp-2 md:line-clamp-3 font-mono leading-relaxed">
+                                                {project.description || "Classified project details."}
+                                            </p>
+
+                                            {/* Footer */}
+                                            <div className="mt-auto border-t border-border-subtle pt-4 flex justify-between items-center text-[10px] font-mono">
+                                                <span className="text-primary opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all">
+                                                    {">"} VIEW_INTEL
+                                                </span>
+                                                <span className="text-muted-foreground">
+                                                    {project.stack.split(" + ")[0]}
+                                                </span>
+                                            </div>
+
+                                            {/* Webhook Scanline Overlay */}
+                                            <div className="absolute inset-0 pointer-events-none bg-scanline opacity-[0.03]" />
                                         </div>
-
-                                        {/* Title */}
-                                        <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                                            {project.title}
-                                        </h3>
-
-                                        <p className="text-sm text-muted-foreground mb-6 line-clamp-2">
-                                            {project.description || "Classified project details."}
-                                        </p>
-
-                                        {/* Footer */}
-                                        <div className="mt-auto border-t border-border-subtle pt-4 flex justify-between items-center text-xs font-mono">
-                                            <span className="text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-                                                {">"} VIEW_INTEL
-                                            </span>
-                                            <span className="text-muted-foreground">
-                                                {project.stack.split(" + ")[0]}
-                                            </span>
-                                        </div>
-
-                                        {/* Glitch Overlay on Hover (Optional, kept simple for now) */}
-                                        <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity" />
                                     </div>
                                 </Link>
                             </motion.div>

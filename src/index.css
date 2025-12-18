@@ -15,7 +15,7 @@
     --primary: 168 76% 40%;
     --primary-foreground: 0 0% 0%;
     --primary-glow: 168 76% 50%;
-    
+
     --accent: 330 81% 60%;
     --accent-foreground: 0 0% 100%;
     --accent-glow: 330 81% 70%;
@@ -73,7 +73,7 @@
     content: '';
     position: fixed;
     inset: 0;
-    background-image: 
+    background-image:
       linear-gradient(hsl(var(--grid-color) / var(--grid-opacity)) 1px, transparent 1px),
       linear-gradient(90deg, hsl(var(--grid-color) / var(--grid-opacity)) 1px, transparent 1px);
     background-size: 60px 60px;
@@ -88,6 +88,7 @@
 }
 
 @layer components {
+
   /* Terminal Styling */
   .terminal-window {
     @apply bg-terminal border border-primary/30 font-mono text-sm;
@@ -109,11 +110,9 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      transparent 0%,
-      hsl(var(--primary) / 0.1) 50%,
-      transparent 100%
-    );
+    background: linear-gradient(transparent 0%,
+        hsl(var(--primary) / 0.1) 50%,
+        transparent 100%);
     transform: translateY(-100%);
     opacity: 0;
     transition: opacity 0.2s;
@@ -125,8 +124,13 @@
   }
 
   @keyframes scan {
-    from { transform: translateY(-100%); }
-    to { transform: translateY(100%); }
+    from {
+      transform: translateY(-100%);
+    }
+
+    to {
+      transform: translateY(100%);
+    }
   }
 
   /* Predatory Glow */
@@ -139,8 +143,15 @@
   }
 
   @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 20px hsl(var(--primary) / 0.4); }
-    50% { box-shadow: 0 0 40px hsl(var(--primary) / 0.7); }
+
+    0%,
+    100% {
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.4);
+    }
+
+    50% {
+      box-shadow: 0 0 40px hsl(var(--primary) / 0.7);
+    }
   }
 
   /* Blinking Cursor */
@@ -149,8 +160,15 @@
   }
 
   @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0;
+    }
   }
 
   /* Brutalist Card */
@@ -175,8 +193,13 @@
   }
 
   @keyframes blood-pulse {
-    0% { box-shadow: 0 0 0 0 hsl(0 84% 60% / 0.6); }
-    100% { box-shadow: 0 0 0 8px hsl(0 84% 60% / 0); }
+    0% {
+      box-shadow: 0 0 0 0 hsl(0 84% 60% / 0.6);
+    }
+
+    100% {
+      box-shadow: 0 0 0 8px hsl(0 84% 60% / 0);
+    }
   }
 
   /* Ticker */
@@ -185,8 +208,13 @@
   }
 
   @keyframes ticker {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
   }
 
   /* Typography Overrides */
@@ -211,12 +239,38 @@
 }
 
 @keyframes scanner {
-  0% { top: 0; opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
 }
 
 .animate-scanner {
   animation: scanner 4s linear infinite;
+}
+
+.glow-text {
+  text-shadow: 0 0 10px hsl(var(--primary) / 0.5), 0 0 20px hsl(var(--primary) / 0.3);
+}
+
+.bg-scanline {
+  background: linear-gradient(to bottom,
+      transparent,
+      transparent 50%,
+      rgba(0, 0, 0, 0.5) 50%,
+      rgba(0, 0, 0, 0.5));
+  background-size: 100% 4px;
 }

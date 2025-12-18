@@ -127,12 +127,25 @@ export const BentoGrid = () => {
                 {hasDetailPage ? (
                   <Link
                     to={`/case-study/${project.id}`}
-                    className={`block h-full min-h-[200px] md:min-h-[250px] p-6 bg-card border border-border-subtle hover:border-${project.color}/50 transition-all duration-300 overflow-hidden relative`}
+                    className={`block h-full min-h-[200px] md:min-h-[250px] p-0 bg-card border border-border-subtle hover:border-${project.color}/50 transition-all duration-500 overflow-hidden relative`}
                   >
-                    {CardContent}
+                    {/* Project Image Background */}
+                    {project.image && (
+                      <div className="absolute inset-0 z-0">
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-full object-cover opacity-10 group-hover:opacity-30 group-hover:scale-110 transition-all duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-transparent" />
+                      </div>
+                    )}
+                    <div className="relative z-10 p-6 h-full flex flex-col">
+                      {CardContent}
+                    </div>
                   </Link>
                 ) : (
-                  <div className={`h-full min-h-[200px] md:min-h-[250px] p-6 bg-card border border-border-subtle hover:border-${project.color}/50 transition-all duration-300 overflow-hidden relative`}>
+                  <div className={`h-full min-h-[200px] md:min-h-[250px] p-6 bg-card border border-border-subtle hover:border-${project.color}/50 transition-all duration-500 overflow-hidden relative`}>
                     {CardContent}
                   </div>
                 )}

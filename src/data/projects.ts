@@ -10,6 +10,7 @@ export interface Project {
     color: "primary" | "accent";
     description?: string;
     videoUrl?: string;
+    image?: string;
     images?: string[];
     // Case Study Details
     metrics?: { label: string; value: string }[];
@@ -29,8 +30,9 @@ export const PROJECTS: Project[] = [
         client: "STEALTH STARTUP",
         killShot: "$ lovable deploy --prod --scale infinite",
         color: "primary",
+        image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=2000", // High-tech circuit
         description: "Real-time high frequency trading visualization interface.",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder (We all know what this is, but it works for demo)
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
         images: [
             "https://images.unsplash.com/photo-1611974765270-ca12586343bb?auto=format&fit=crop&q=80&w=1000",
             "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
@@ -58,6 +60,7 @@ export const PROJECTS: Project[] = [
         client: "ENTERPRISE",
         killShot: "$ npx create-shark-app@latest",
         color: "accent",
+        image: "/portfolio/ai-shark.png", // OUR GENERATED SHARK
         description: "Autonomous customer support agent swarms.",
     },
     {
@@ -70,6 +73,7 @@ export const PROJECTS: Project[] = [
         client: "DTC BRAND",
         killShot: "$ stripe listen --forward-to /api/prey",
         color: "primary",
+        image: "https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80&w=2000", // Dark eCommerce
         description: "Headless commerce engine for high-velocity brands.",
     },
     {
@@ -82,6 +86,7 @@ export const PROJECTS: Project[] = [
         client: "INDIE",
         killShot: "$ git commit -m 'apex'",
         color: "accent",
+        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=2000", // Data mesh
         description: "The ultimate starting point for hunters.",
     },
     {
@@ -94,6 +99,7 @@ export const PROJECTS: Project[] = [
         client: "CREATIVE",
         killShot: "$ vercel --prod",
         color: "primary",
+        image: "https://images.unsplash.com/photo-1635830312891-6644f07caecb?auto=format&fit=crop&q=80&w=2000", // Matrix/Abstract
         description: "This very interface. Self-replicating excellence.",
     },
     {
@@ -106,6 +112,7 @@ export const PROJECTS: Project[] = [
         client: "STARTUP",
         killShot: "$ curl -X POST /devour",
         color: "accent",
+        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=2000",
         description: "High-throughput request ingestion system.",
     },
     {
@@ -118,6 +125,7 @@ export const PROJECTS: Project[] = [
         client: "FUNDED",
         killShot: "$ expo start --hunt",
         color: "primary",
+        image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=2000", // Mobile phone
         description: "Cross-platform predation tool.",
     },
 ];
