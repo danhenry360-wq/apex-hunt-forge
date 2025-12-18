@@ -1,9 +1,9 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAudio } from "@/hooks/useAudio";
 import { Link } from "react-router-dom";
 import { useProjects } from "@/hooks/useProjects";
-import { Play } from "lucide-react";
+import { Play, Volume2, VolumeX } from "lucide-react";
 
 const sizeClasses = {
   large: "md:col-span-2 md:row-span-2",
@@ -11,7 +11,96 @@ const sizeClasses = {
   small: "md:col-span-1 md:row-span-1",
 };
 
-// Animated preview component for cards without video
+// Video preview component with actual video playback
+const VideoPreview = ({ 
+  previewVideo, 
+  isHovered,
+  color 
+}: { 
+  previewVideo: string; 
+  isHovered: boolean;
+  color: "primary" | "accent";
+}) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isHovered) {
+        videoRef.current.play().catch(() => {});
+      } else {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 0;
+      }
+    }
+  }, [isHovered]);
+
+  return (
+    <AnimatePresence>
+      {isHovered && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4 }}
+          className="absolute inset-0 z-10 overflow-hidden"
+        >
+          <video
+            ref={videoRef}
+            src={previewVideo}
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            className="w-full h-full object-cover"
+          />
+          
+          {/* Overlay gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+          
+          {/* Color tint overlay */}
+          <div className={`absolute inset-0 ${color === 'primary' ? 'bg-primary/10' : 'bg-accent/10'} mix-blend-overlay`} />
+          
+          {/* Scan line effect */}
+          <motion.div
+            initial={{ y: "-100%" }}
+            animate={{ y: "200%" }}
+            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            className={`absolute inset-x-0 h-px ${color === 'primary' ? 'bg-primary/50' : 'bg-accent/50'}`}
+          />
+          
+          {/* Play indicator */}
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.1 }}
+            className="absolute top-4 left-4 flex items-center gap-2"
+          >
+            <div className={`w-6 h-6 rounded-full ${color === 'primary' ? 'bg-primary/20 border-primary/50' : 'bg-accent/20 border-accent/50'} border flex items-center justify-center`}>
+              <Play className={`w-3 h-3 ${color === 'primary' ? 'text-primary fill-primary' : 'text-accent fill-accent'}`} />
+            </div>
+            <span className={`text-xs font-mono ${color === 'primary' ? 'text-primary' : 'text-accent'}`}>LIVE DEMO</span>
+          </motion.div>
+          
+          {/* Recording indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="absolute top-4 right-4 flex items-center gap-2"
+          >
+            <motion.div
+              animate={{ opacity: [1, 0.3, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="w-2 h-2 rounded-full bg-destructive"
+            />
+            <span className="text-xs font-mono text-destructive">REC</span>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+// Animated preview for items without video
 const AnimatedPreview = ({ color }: { color: "primary" | "accent" }) => {
   return (
     <div className="absolute inset-0 overflow-hidden">
@@ -87,55 +176,6 @@ const TypewriterLine = ({ text, delay }: { text: string; delay: number }) => {
   );
 };
 
-// Video preview component
-const VideoPreview = ({ videoUrl, isHovered }: { videoUrl: string; isHovered: boolean }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  
-  // Extract video ID and create embed-friendly URL
-  const getPreviewUrl = (url: string) => {
-    // For demo purposes, using a placeholder video loop
-    // In production, you'd use actual preview videos
-    return "https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-futuristic-devices-99786-large.mp4";
-  };
-
-  return (
-    <AnimatePresence>
-      {isHovered && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="absolute inset-0 z-20"
-        >
-          <video
-            ref={videoRef}
-            src={getPreviewUrl(videoUrl)}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover opacity-40"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
-          
-          {/* Play indicator */}
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            className="absolute top-4 left-4 flex items-center gap-2"
-          >
-            <div className="w-6 h-6 rounded-full bg-primary/20 border border-primary/50 flex items-center justify-center">
-              <Play className="w-3 h-3 text-primary fill-primary" />
-            </div>
-            <span className="text-xs font-mono text-primary">PREVIEW</span>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-};
-
 export const BentoGrid = () => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const { playSonar } = useAudio();
@@ -170,9 +210,18 @@ export const BentoGrid = () => {
 
             const CardContent = (
               <>
-                {/* Animated Preview on Hover */}
+                {/* Video Preview */}
+                {project.previewVideo && (
+                  <VideoPreview 
+                    previewVideo={project.previewVideo} 
+                    isHovered={isHovered}
+                    color={project.color}
+                  />
+                )}
+
+                {/* Animated Preview fallback */}
                 <AnimatePresence>
-                  {isHovered && !project.videoUrl && (
+                  {isHovered && !project.previewVideo && (
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -183,11 +232,6 @@ export const BentoGrid = () => {
                     </motion.div>
                   )}
                 </AnimatePresence>
-
-                {/* Video Preview */}
-                {project.videoUrl && (
-                  <VideoPreview videoUrl={project.videoUrl} isHovered={isHovered} />
-                )}
 
                 {/* Project Title */}
                 <div className="flex items-start justify-between mb-4 relative z-30">
@@ -307,7 +351,7 @@ export const BentoGrid = () => {
                           src={project.image}
                           alt={project.title}
                           animate={{
-                            opacity: isHovered ? 0.4 : 0.15,
+                            opacity: isHovered ? 0 : 0.15,
                             scale: isHovered ? 1.1 : 1
                           }}
                           transition={{ duration: 0.7 }}
@@ -329,7 +373,7 @@ export const BentoGrid = () => {
                           src={project.image}
                           alt={project.title}
                           animate={{
-                            opacity: isHovered ? 0.4 : 0.15,
+                            opacity: isHovered ? 0 : 0.15,
                             scale: isHovered ? 1.1 : 1
                           }}
                           transition={{ duration: 0.7 }}
