@@ -1,3 +1,11 @@
+import fintechDashboard from "@/assets/portfolio/fintech-dashboard.jpg";
+import aiChatbot from "@/assets/portfolio/ai-chatbot.jpg";
+import ecommerceMvp from "@/assets/portfolio/ecommerce-mvp.jpg";
+import saasBoilerplate from "@/assets/portfolio/saas-boilerplate.jpg";
+import portfolioSite from "@/assets/portfolio/portfolio-site.jpg";
+import apiGateway from "@/assets/portfolio/api-gateway.jpg";
+import mobileApp from "@/assets/portfolio/mobile-app.jpg";
+
 export interface Project {
     id: string;
     title: string;
@@ -30,14 +38,10 @@ export const PROJECTS: Project[] = [
         client: "STEALTH STARTUP",
         killShot: "$ lovable deploy --prod --scale infinite",
         color: "primary",
-        image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=2000", // High-tech circuit
+        image: fintechDashboard,
         description: "Real-time high frequency trading visualization interface.",
         videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-        images: [
-            "https://images.unsplash.com/photo-1611974765270-ca12586343bb?auto=format&fit=crop&q=80&w=1000",
-            "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
-            "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&q=80&w=1000"
-        ],
+        images: [fintechDashboard],
         challenge: "Build a real-time trading dashboard capable of handling 10,000+ concurrent users with sub-100ms latency.",
         approach: "Leveraged AI-assisted development with Cursor to rapidly prototype. Used Supabase real-time subscriptions for live data streaming. Implemented virtualized lists for performance.",
         metrics: [
@@ -60,7 +64,7 @@ export const PROJECTS: Project[] = [
         client: "ENTERPRISE",
         killShot: "$ npx create-shark-app@latest",
         color: "accent",
-        image: "/portfolio/ai-shark.png", // OUR GENERATED SHARK
+        image: aiChatbot,
         description: "Autonomous customer support agent swarms.",
     },
     {
@@ -73,7 +77,7 @@ export const PROJECTS: Project[] = [
         client: "DTC BRAND",
         killShot: "$ stripe listen --forward-to /api/prey",
         color: "primary",
-        image: "https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80&w=2000", // Dark eCommerce
+        image: ecommerceMvp,
         description: "Headless commerce engine for high-velocity brands.",
     },
     {
@@ -86,7 +90,7 @@ export const PROJECTS: Project[] = [
         client: "INDIE",
         killShot: "$ git commit -m 'apex'",
         color: "accent",
-        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=2000", // Data mesh
+        image: saasBoilerplate,
         description: "The ultimate starting point for hunters.",
     },
     {
@@ -99,7 +103,7 @@ export const PROJECTS: Project[] = [
         client: "CREATIVE",
         killShot: "$ vercel --prod",
         color: "primary",
-        image: "https://images.unsplash.com/photo-1635830312891-6644f07caecb?auto=format&fit=crop&q=80&w=2000", // Matrix/Abstract
+        image: portfolioSite,
         description: "This very interface. Self-replicating excellence.",
     },
     {
@@ -112,7 +116,7 @@ export const PROJECTS: Project[] = [
         client: "STARTUP",
         killShot: "$ curl -X POST /devour",
         color: "accent",
-        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=2000",
+        image: apiGateway,
         description: "High-throughput request ingestion system.",
     },
     {
@@ -125,7 +129,7 @@ export const PROJECTS: Project[] = [
         client: "FUNDED",
         killShot: "$ expo start --hunt",
         color: "primary",
-        image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=2000", // Mobile phone
+        image: mobileApp,
         description: "Cross-platform predation tool.",
     },
 ];
